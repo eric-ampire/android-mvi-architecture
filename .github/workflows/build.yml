@@ -5,17 +5,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-  steps:
-    uses: actions/checkout@v1
-    - name: Set Up JDK
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
 
-    - name: Run Tests
-      run: ./gradlew test
+      - name: Run Tests
+        run: ./gradlew test
 
 
-    - name: Build project
-      run: ./gradlew assemble
+      - name: Build project
+        run: ./gradlew assemble
 
