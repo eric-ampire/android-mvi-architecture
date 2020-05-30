@@ -1,2 +1,2 @@
-include ':app'
+include ':android-mvi'
 rootProject.name = "Demo App"
