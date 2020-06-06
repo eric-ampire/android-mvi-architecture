@@ -9,6 +9,11 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "org.ericampire.android.demoapp"
         minSdkVersion 21

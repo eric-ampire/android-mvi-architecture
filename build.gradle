@@ -4,6 +4,7 @@ buildscript {
         store_version = "4.0.0-alpha06"
         koin_version = "2.1.5"
         room_version = "2.2.5"
+        groupie_version = "2.8.0"
     }
     repositories {
         google()
