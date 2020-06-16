@@ -1,56 +1,37 @@
 package org.ericampire.android.demoapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.isVisible
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
+import com.airbnb.mvrx.BaseMvRxFragment
+import com.airbnb.mvrx.fragmentViewModel
+import com.airbnb.mvrx.withState
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.ericampire.android.demoapp.adapter.ItemAdapter
-import org.ericampire.android.demoapp.architecture.UserIntent
-import org.ericampire.android.demoapp.architecture.ViewRender
 import org.ericampire.android.demoapp.databinding.ActivityMainBinding
-import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(),
-    ViewRender<State> {
-
-    private val viewModel by viewModel<FactViewModel>()
-
-    private val binding by lazy {
-        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-    }
-
-    private val recyclerAdapter = ItemAdapter()
-
+class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.recyclerView.setRecyclerAdapter(recyclerAdapter)
-
-        viewModel.state.observe(this, Observer {
-            render(it)
-        })
-
-        binding.btnClear.setOnClickListener {
-            //viewModel.dispatchIntent(UserIntent.ClearFact)
-        }
-
-        binding.btnKick.setOnClickListener {
-            viewModel.dispatchIntent(UserIntent.ShowNewFact(
-                //binding.spinner.selectedItem as String
-            ))
-        }
-    }
-
-    override fun render(state: State) {
-        with(state) {
-            // Todo: Submit the state to the view
-            binding.progressBar.isVisible = isLoadingFact
-            binding.progressBarCategory.isVisible = isLoadingCategories
-            binding.btnKick.isEnabled = isKickButtonEnabled
-            binding.btnClear.isEnabled = isKickButtonEnabled
-            binding.spinner.setData(categories)
-            binding.spinner.isEnabled = isSpinnerEnabled
-            recyclerAdapter.submitList(facts)
-        }
+        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
     }
 }
+
+class HomeFragment : BaseMvRxFragment(R.layout.fragment_home) {
+
+    private val viewModel: FactViewModel by fragmentViewModel()
+    private val recyclerAdapter = ItemAdapter()
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.recyclerView.adapter = recyclerAdapter
+    }
+
+
+    override fun invalidate() = withState(viewModel) {
+        recyclerAdapter.submitList(it.users.invoke())
+    }
+}
+

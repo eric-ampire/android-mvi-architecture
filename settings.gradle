@@ -1,2 +1,3 @@
+include ':graphql'
 include ':android-mvi'
-rootProject.name = "Demo App"
+rootProject.name = "demo-android"

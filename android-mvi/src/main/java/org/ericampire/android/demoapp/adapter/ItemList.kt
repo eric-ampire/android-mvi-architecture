@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import org.ericampire.android.demoapp.Fact
+import org.ericampire.android.demoapp.User
 import org.ericampire.android.demoapp.databinding.ItemListBinding
 
-class ItemAdapter : ListAdapter<Fact, ItemViewHolder>(ItemAdapter) {
-    companion object : DiffUtil.ItemCallback<Fact>() {
-        override fun areItemsTheSame(oldItem: Fact, newItem: Fact): Boolean {
+class ItemAdapter : ListAdapter<User, ItemViewHolder>(ItemAdapter) {
+    companion object : DiffUtil.ItemCallback<User>() {
+        override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: Fact, newItem: Fact): Boolean {
+        override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem == newItem
         }
     }
@@ -28,7 +28,7 @@ class ItemAdapter : ListAdapter<Fact, ItemViewHolder>(ItemAdapter) {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val binding = holder.binding as ItemListBinding
-        binding.fact = getItem(position)
+        binding.currentUser = getItem(position)
         binding.executePendingBindings()
     }
 }
