@@ -12,8 +12,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/android-mvi" />
-            <option value="$PROJECT_DIR$/compose" />
-            <option value="$PROJECT_DIR$/graphql" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

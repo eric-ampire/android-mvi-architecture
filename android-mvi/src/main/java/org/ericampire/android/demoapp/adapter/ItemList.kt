@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import org.ericampire.android.demoapp.User
+import coil.api.load
+import coil.transform.CircleCropTransformation
+import org.ericampire.android.demoapp.R
+import org.ericampire.android.demoapp.model.User
 import org.ericampire.android.demoapp.databinding.ItemListBinding
 
 class ItemAdapter : ListAdapter<User, ItemViewHolder>(ItemAdapter) {
@@ -28,8 +31,11 @@ class ItemAdapter : ListAdapter<User, ItemViewHolder>(ItemAdapter) {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val binding = holder.binding as ItemListBinding
-        binding.currentUser = getItem(position)
-        binding.executePendingBindings()
+        val currentUser = getItem(position)
+        binding.run {
+            user = currentUser
+            executePendingBindings()
+        }
     }
 }
 

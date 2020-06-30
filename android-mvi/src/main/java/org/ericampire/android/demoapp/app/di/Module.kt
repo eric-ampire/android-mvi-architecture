@@ -1,8 +1,9 @@
 package org.ericampire.android.demoapp.app.di
 
 import okhttp3.OkHttpClient
-import org.ericampire.android.demoapp.FactViewModel
-import org.ericampire.android.demoapp.User
+import org.ericampire.android.demoapp.model.User
+import org.ericampire.android.demoapp.model.UserApi
+import org.ericampire.android.demoapp.viewmodel.UserViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -26,10 +27,8 @@ val netModule = module {
     single { provideRetrofit(get()) }
 }
 
-interface UserApi {
-
-    @GET("users")
-    suspend fun getUser(): List<User>
+val viewModelScope = module {
+    viewModel { UserViewModel(get()) }
 }
 
 val apiModule = module {
