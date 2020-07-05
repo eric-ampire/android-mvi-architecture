@@ -49,9 +49,7 @@ class UserViewModel(private val userApi: UserApi) : ViewModel(), IModel<UserStat
         }
     }
 
-    private fun updateState(handler: suspend (intent: UserState) -> UserState) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _state.value = handler(state.value!!)
-        }
+    private suspend fun updateState(handler: suspend (intent: UserState) -> UserState) {
+        _state.postValue(handler(state.value!!))
     }
 }
